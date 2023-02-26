@@ -71,3 +71,15 @@ extension Reference: Comparable where Value: Comparable {
         lhs.wrappedValue < rhs.wrappedValue
     }
 }
+
+extension Reference: Decodable where Value: Decodable {
+    public convenience init(from decoder: Decoder) throws {
+        try self.init(Value(from: decoder))
+    }
+}
+
+extension Reference: Encodable where Value: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        try wrappedValue.encode(to: encoder)
+    }
+}
